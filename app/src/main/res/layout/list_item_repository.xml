@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+        <variable
+            name="repository"
+            type="br.com.wakim.github.data.model.Repository" />
+    </data>
+
+    <TextView
+        android:id="@+id/tv_repository_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:text="@{repository.name}"
+        tools:text="Teste" />
+</layout>

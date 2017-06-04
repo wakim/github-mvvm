@@ -6,16 +6,6 @@ import br.com.wakim.github.BuildConfig
 import br.com.wakim.github.data.exception.NetworkConnectivityException
 import br.com.wakim.github.data.remote.Api
 import br.com.wakim.github.util.isConnected
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import dagger.Module
-import dagger.Provides
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 open class ApiModule(var baseUrl: String) {
@@ -27,13 +17,14 @@ open class ApiModule(var baseUrl: String) {
 
     @Provides
     @Singleton
-    fun providesApiService(gson: Gson, okHttpClient: OkHttpClient): Api =
+    fun providesApi(gson: Gson, okHttpClient: OkHttpClient): Api =
             Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .client(okHttpClient)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build().create(Api::class.java)
+                    .build()
+                    .create(Api::class.java)
 
     @Provides
     @Singleton
