@@ -6,6 +6,9 @@ import android.net.ConnectivityManager
 import br.com.wakim.github.App
 import br.com.wakim.github.data.SchedulerProvider
 import br.com.wakim.github.data.SchedulerProviderContract
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class AppModule(private val app: App) {

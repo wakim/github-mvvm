@@ -1,15 +1,22 @@
 package br.com.wakim.github.widget
 
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
+import android.support.v7.util.DiffUtil
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 
 class DataBindAdapter<M, in T : ViewDataBinding>(private val layoutResId: Int,
                                                  private val variableId: Int,
                                                  private val idAccessor: (M) -> Long,
                                                  context: Context)  : RecyclerView.Adapter<DataBindViewHolder>() {
 
-    private var data: List<M> = ArrayList()
+    var data: List<M> = ArrayList()
     private val layoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DataBindViewHolder =

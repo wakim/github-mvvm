@@ -4,6 +4,8 @@ import br.com.wakim.github.data.model.LCE
 import br.com.wakim.github.data.model.NextPage
 import br.com.wakim.github.data.model.RepositorySearchResponse
 import br.com.wakim.github.data.remote.Api
+import br.com.wakim.github.data.remote.hasMore
+import io.reactivex.Observable
 
 interface RepositoryDataSource {
     fun search(query: String, nextPage: NextPage): Observable<LCE<RepositorySearchResponse>>

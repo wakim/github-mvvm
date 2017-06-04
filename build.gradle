@@ -21,7 +21,6 @@ ext {
     archVersion = '1.0.0-alpha1'
     rxBindingVersion = '2.0.0'
     paperParcelVersion = '2.0.1'
-    infiniteScrollVersion = '0.0.1'
 
     // Test dependencies
     junitVersion = '4.12'

@@ -1,5 +1,7 @@
 package br.com.wakim.github.injection
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import br.com.wakim.github.App
 
 class ViewModelAppComponentFactory(app: App) : ViewModelProviders.DefaultFactory(app) {

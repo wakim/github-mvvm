@@ -1,12 +1,21 @@
 package br.com.wakim.github.ui.repository_list
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import br.com.wakim.github.data.RepositoryDataSource
 import br.com.wakim.github.data.SchedulerProviderContract
 import br.com.wakim.github.data.model.LCE
 import br.com.wakim.github.data.model.NextPage
+import br.com.wakim.github.data.model.Repository
 import br.com.wakim.github.data.model.RepositorySearchResponse
 import br.com.wakim.github.injection.ApplicationComponent
 import br.com.wakim.github.injection.InjectableViewModel
+import br.com.wakim.github.util.addToCompositeDisposable
+import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
 class RepositoryListViewModel(applicationComponent: ApplicationComponent) : ViewModel(), InjectableViewModel {
 

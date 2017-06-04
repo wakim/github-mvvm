@@ -1,6 +1,10 @@
 package br.com.wakim.github.ui.repository_list
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.inputmethod.EditorInfo
 import br.com.wakim.github.App
 import br.com.wakim.github.BR
@@ -13,6 +17,11 @@ import br.com.wakim.github.injection.ViewModelAppComponentFactory
 import br.com.wakim.github.util.gone
 import br.com.wakim.github.util.visible
 import br.com.wakim.github.widget.DataBindAdapter
+import br.com.wakim.github.widget.ReactiveInfeniteListener
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
 class RepositoryListActivity : BaseActivity() {
 
@@ -27,6 +36,7 @@ class RepositoryListActivity : BaseActivity() {
     }
 
     val adapterSubject: PublishSubject<List<Repository>> = PublishSubject.create<List<Repository>>()
+    val scrollListener = ReactiveInfeniteListener()
     var disposable : Disposable? = null
 
     override fun onDestroy() {
@@ -44,14 +54,21 @@ class RepositoryListActivity : BaseActivity() {
         setupToolbar()
         setupAdapter()
         setupSearch()
+        setupRecyclerView()
 
         viewModel.repositoriesLiveData.observe(this, Observer {
-            it?.content?.items?.let(adapterSubject::onNext)
-            it?.error?.apply {
+            it ?: return@Observer
+
+            it.content?.items?.let { adapterSubject.onNext(adapter.data + it) }
+
+            scrollListener.hasMore = it.content?.nextPage?.hasMore ?: false
+            scrollListener.enabled = !it.loading
+
+            it.error?.apply {
                 Snackbar.make(binding.coordinatorLayout, this.toString(), Snackbar.LENGTH_LONG).show()
             }
 
-            if (it?.loading ?: false) {
+            if (it.loading) {
                 binding.loading.visible()
             } else {
                 binding.loading.gone()
@@ -66,6 +83,11 @@ class RepositoryListActivity : BaseActivity() {
     fun setupAdapter() {
         binding.recyclerView.adapter = adapter
         disposable = adapter.bind(adapterSubject.observeOn(Schedulers.computation()))
+    }
+
+    fun setupRecyclerView() {
+        binding.recyclerView.addOnScrollListener(scrollListener)
+        viewModel.bindPage(scrollListener.listen())
     }
 
     fun setupSearch() {

@@ -112,7 +112,5 @@ dependencies {
     compile "nz.bradcampbell:paperparcel:$rootProject.paperParcelVersion"
     kapt "nz.bradcampbell:paperparcel-compiler:$rootProject.paperParcelVersion"
 
-    compile "com.github.pwittchen:infinitescroll:$rootProject.infiniteScrollVersion"
-
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 }

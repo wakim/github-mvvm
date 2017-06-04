@@ -2,6 +2,7 @@ package br.com.wakim.github.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import paperparcel.PaperParcel
 
 @PaperParcel
 data class NextPage(val hasMore: Boolean = false,

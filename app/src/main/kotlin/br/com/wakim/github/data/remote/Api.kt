@@ -1,6 +1,10 @@
 package br.com.wakim.github.data.remote
 
 import br.com.wakim.github.data.model.RepositorySearchResponse
+import io.reactivex.Observable
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface Api {
     @GET("/search/repositories")
