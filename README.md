@@ -3,10 +3,12 @@
 Minimal Github repository browser, which the main purpose is experiment MVVM architecture using:
 
  - Kotlin
- - Lifecycle, ViewModel and LiveData Support Library components
+ - Lifecycle, ViewModel and LiveData Support Library architecture components
  - Dagger2
  - RxJava
  - Retrofit
+ - Roboletric
+ - Mockito Kotlin
 
 ## Dependencies
 
@@ -28,7 +30,9 @@ To run this project you need to have:
 
 ## Tests
 
-Coming soon
+Since `LiveData` depends on Main Thread Handler, Roboletric is required to run unit tests.
+
+Tests must run using `./gradlew :app:testDevelopmentReleaseUnitTest` command, because issues with Roboletric and Stetho
 
 License
 --------
