@@ -60,7 +60,7 @@ class RepositoryListActivity : BaseActivity() {
             it ?: return@Observer
 
             it.content?.let {
-                if (it.currentPage == 0) {
+                if (it.currentPage == 1) {
                     adapterSubject.onNext(emptyList())
                     adapterSubject.onNext(it.items)
                 } else {
