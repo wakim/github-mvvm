@@ -15,9 +15,9 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class RepositoryListViewModel @Inject constructor(private val repositoryDataSource: RepositoryDataSource,
-                                                  private val schedulerProvider: SchedulerProviderContract) : ViewModel() {
+                                                  schedulerProvider: SchedulerProviderContract) : ViewModel() {
 
-    private val searchSubject = PublishSubject.create<Pair<String, NextPage>>()
+    private val searchSubject = PublishSubject.create<Pair<String, NextPage>>().toSerialized()
 
     private var disposable = CompositeDisposable()
     private var currentQuery = ""
