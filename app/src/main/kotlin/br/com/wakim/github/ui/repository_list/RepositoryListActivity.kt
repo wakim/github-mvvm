@@ -59,7 +59,14 @@ class RepositoryListActivity : BaseActivity() {
         viewModel.repositoriesLiveData.observe(this, Observer {
             it ?: return@Observer
 
-            it.content?.items?.let { adapterSubject.onNext(adapter.data + it) }
+            it.content?.let {
+                if (it.currentPage == 0) {
+                    adapterSubject.onNext(emptyList())
+                    adapterSubject.onNext(it.items)
+                } else {
+                    adapterSubject.onNext(adapter.data + it.items)
+                }
+            }
 
             scrollListener.hasMore = it.content?.nextPage?.hasMore ?: false
             scrollListener.enabled = !it.loading

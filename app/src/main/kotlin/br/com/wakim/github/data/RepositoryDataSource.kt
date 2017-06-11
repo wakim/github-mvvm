@@ -18,7 +18,7 @@ class RepositoryRepository(val api: Api) : RepositoryDataSource {
         return api.searchRepositories(query, page)
                 .map {
                     it.body()?.copy(nextPage = if (it.hasMore()) NextPage(true, page + 1) else NextPage(false, page)) ?:
-                            RepositorySearchResponse(emptyList(), NextPage(false, page))
+                            RepositorySearchResponse(emptyList(), page, NextPage(false, page))
                 }
                 .map { LCE.content(it) }
                 .startWith(LCE.loading())
