@@ -7,5 +7,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(AppModule::class, ApiModule::class, DataModule::class))
 interface ApplicationComponent {
-    fun inject(repositoryListViewModel: RepositoryListViewModel)
+    fun repositoryViewModel(): RepositoryListViewModel
 }

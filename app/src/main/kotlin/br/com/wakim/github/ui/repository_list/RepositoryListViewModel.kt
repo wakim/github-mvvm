@@ -7,23 +7,15 @@ import br.com.wakim.github.data.RepositoryDataSource
 import br.com.wakim.github.data.SchedulerProviderContract
 import br.com.wakim.github.data.model.LCE
 import br.com.wakim.github.data.model.NextPage
-import br.com.wakim.github.data.model.Repository
 import br.com.wakim.github.data.model.RepositorySearchResponse
-import br.com.wakim.github.injection.ApplicationComponent
-import br.com.wakim.github.injection.InjectableViewModel
 import br.com.wakim.github.util.addToCompositeDisposable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class RepositoryListViewModel(applicationComponent: ApplicationComponent) : ViewModel(), InjectableViewModel {
-
-    @Inject
-    internal lateinit var repositoryDataSource: RepositoryDataSource
-
-    @Inject
-    internal lateinit var schedulerProvider: SchedulerProviderContract
+class RepositoryListViewModel @Inject constructor(private val repositoryDataSource: RepositoryDataSource,
+                                                  private val schedulerProvider: SchedulerProviderContract) : ViewModel() {
 
     private val searchSubject = PublishSubject.create<Pair<String, NextPage>>()
 
@@ -35,8 +27,6 @@ class RepositoryListViewModel(applicationComponent: ApplicationComponent) : View
     val repositoriesLiveData: LiveData<LCE<RepositorySearchResponse>> = MutableLiveData()
 
     init {
-        applicationComponent.inject(this)
-
         searchSubject
                 .observeOn(schedulerProvider.io)
                 .doOnNext {
@@ -60,6 +50,7 @@ class RepositoryListViewModel(applicationComponent: ApplicationComponent) : View
 
     fun bindPage(pageObservable: Observable<Any>) {
         pageObservable
+                .filter { !currentQuery.isNullOrEmpty() }
                 .map { currentQuery to currentPage.copy(page = currentPage.page + 1) }
                 .doOnNext(searchSubject::onNext)
                 .subscribe()

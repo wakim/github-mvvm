@@ -20,8 +20,8 @@ class RepositoryRepository(val api: Api) : RepositoryDataSource {
                     it.body()?.copy(nextPage = if (it.hasMore()) NextPage(true, page + 1) else NextPage(false, page)) ?:
                             RepositorySearchResponse(emptyList(), NextPage(false, page))
                 }
-                .map { LCE(false, it, null) }
-                .startWith(LCE(true, null, null))
-                .onErrorReturn { t: Throwable -> LCE(false, null, t) }
+                .map { LCE.content(it) }
+                .startWith(LCE.loading())
+                .onErrorReturn { t: Throwable -> LCE.error(t) }
     }
 }
