@@ -38,7 +38,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
 
         debug.java.srcDirs += 'src/debug/kotlin'
-        release.java.srcDirs += 'src/release/kotlin'
 
         test.java.srcDirs += 'src/test/kotlin'
     }
@@ -112,5 +111,10 @@ dependencies {
     compile "nz.bradcampbell:paperparcel:$rootProject.paperParcelVersion"
     kapt "nz.bradcampbell:paperparcel-compiler:$rootProject.paperParcelVersion"
 
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    testCompile "junit:junit:$rootProject.junitVersion"
+    testCompile ("com.nhaarman:mockito-kotlin-kt1.1:$rootProject.mockitoKotlinVersion") {
+        exclude module: "kotlin-stdlib"
+        exclude module: "kotlin-reflect"
+    }
+    testCompile "org.robolectric:robolectric:$rootProject.roboletricVersion"
 }
