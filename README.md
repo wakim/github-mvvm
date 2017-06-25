@@ -10,13 +10,18 @@ Minimal Github repository browser, which the main purpose is experiment MVVM arc
  - Roboletric
  - Mockito Kotlin
 
+## Branches
+
+The branch `rxlifecycle` replaces all Architecture Components to use RxLifecycle and pure RxJava components to share data between viewmodels and view.
+All tests now are simple unit tests and don't require Roboletric to run.
+
 ## Dependencies
 
 To run this project you need to have:
 
  - JDK 8 for compilation
  - Android Studio 2.3 or higher
- - Kotlin Plugin 1.1.2+
+ - Kotlin Plugin 1.1.3
 
 ## Setup the project
 
