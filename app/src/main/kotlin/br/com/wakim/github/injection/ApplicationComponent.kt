@@ -8,4 +8,5 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(AppModule::class, ApiModule::class, DataModule::class))
 interface ApplicationComponent {
     fun repositoryViewModel(): RepositoryListViewModel
+    fun configPersistentComponent(): ConfigPersistentComponent
 }

@@ -101,12 +101,10 @@ dependencies {
 
     kapt "com.android.databinding:compiler:$rootProject.dataBindVersion"
 
-    compile "android.arch.lifecycle:runtime:$rootProject.archVersion"
-    compile "android.arch.lifecycle:extensions:$rootProject.archVersion"
-
-    kapt "android.arch.lifecycle:compiler:$rootProject.archVersion"
-
     compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
+
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.rxLifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.rxLifecycleVersion"
 
     compile "nz.bradcampbell:paperparcel:$rootProject.paperParcelVersion"
     kapt "nz.bradcampbell:paperparcel-compiler:$rootProject.paperParcelVersion"
@@ -116,5 +114,4 @@ dependencies {
         exclude module: "kotlin-stdlib"
         exclude module: "kotlin-reflect"
     }
-    testCompile "org.robolectric:robolectric:$rootProject.roboletricVersion"
 }
